@@ -1,0 +1,11 @@
+﻿angularjs 
+toastr
+bootstrap 
+owin|kaana
+AutoFac
+AutoMapper
+log4net
+SignalR
+OAuth Bearer token + AD
+WebApi 
+EntityFramework 

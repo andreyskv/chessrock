@@ -1,0 +1,8 @@
+bin/
+obj/
+packages/
+bower_components/
+*.suo
+*.user
+*.log
+*.rdl.data

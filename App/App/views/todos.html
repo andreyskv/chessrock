@@ -1,0 +1,31 @@
+﻿<form class="form-inline" data-ng-submit="addTodoList()">
+    <input type="text" class="form-control" placeholder="New todo list" data-ng-model="newTodoListName" required />
+</form>
+<br />
+<div class="panel-group" id="accordion">
+    <div class="panel panel-info repeat-item" data-ng-repeat="todoList in todoLists">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" data-ng-click="expand(todoList)" href="{{'#' + todoList.id}}" target="_self">
+                    {{todoList.title}}
+                </a>
+                <button type="button" class="close" aria-hidden="true" data-ng-click="removeTodoList(todoList)">&times;</button>
+            </h4>
+        </div>
+        <div id="{{todoList.id}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <form class="form-inline" data-ng-submit="addTodoItem(todoList)">
+                    <input type="text" class="form-control" placeholder="New todo item" data-ng-model="todoList.newTodoItemName" required />
+                </form>
+                <br />
+                <ul class="list-unstyled repeat-item" data-ng-repeat="todo in todoList.todoItems">
+                    <li>
+                        <input type="checkbox" data-ng-model="todo.isDone" data-ng-change="saveTodoItem(todo)" />
+                        <span data-ng-class="{'strike':todo.isDone}" data-ng-bind="todo.title"></span>    
+                        <button type="button" class="close" aria-hidden="true" data-ng-click="removeTodoItem(todoList, todo)">&times;</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

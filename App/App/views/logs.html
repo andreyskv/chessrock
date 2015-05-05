@@ -1,0 +1,10 @@
+﻿<div class="btn-toolbar">
+    <button class="btn btn-success" data-ng-disabled="!logs.length" data-ng-click="clearLogs()"><i class="glyphicon glyphicon-remove"></i> Clear logs</button>
+</div>
+<br/>
+<div data-ng-repeat="log in logs" data-ng-class="log.class">
+    <button type="button" class="close" data-dismiss="alert" data-ng-click="logs.splice($index, 1)">&times;</button>
+    {{log.FormattedEvent}}
+</div>
+
+
