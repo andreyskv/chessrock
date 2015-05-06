@@ -51,8 +51,7 @@ var Chess = function(fen) {
 
   var SYMBOLS = 'pnbrqkPNBRQK';
 
-  //var DEFAULT_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-  var DEFAULT_POSITION = 'rnbqkbnr/p3Pppp/3p4/2p5/1pP5/8/PP2PPPP/RNBQKBNR w KQkq - 0 6';
+  var DEFAULT_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';  
   
 
   var POSSIBLE_RESULTS = ['1-0', '0-1', '1/2-1/2', '*'];
