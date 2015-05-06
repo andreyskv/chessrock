@@ -15,41 +15,40 @@
     };
   
     this.onDrop = function(game, board, source, target) {
-        // see if the move is legal
+        
+        var makeMove = function(promotionPiece){
+            return game.move({
+                from: source,
+                to: target,
+                promotion: promotionPiece
+            });          
+        };
+      
+        if (source == target)
+            return 'snapback';
 
         var sp = game.get(source);
-        if (sp && sp.type == 'p' && ((sp.color == 'w' && source[1] == '7') || (sp.color == 'b' && source[1] == '2')))
-        {
-            $scope.config_push
-            debugger;
+        if (sp && sp.type == 'p' && ((sp.color == 'w' && source[1] == '7') || (sp.color == 'b' && source[1] == '2'))) {
+            var color = null;
+            if (sp.color == 'w' && source[1] == '7')
+                color = 'white';
+            else if (sp.color == 'b' && source[1] == '2') {
+                color = 'black';
+            }
+            if (color) {
+                board.choosePromotion(color, function (promotionPiece) {
+                    makeMove(promotionPiece)
+                    board.position(game.fen());
+                });
+                return 'snapback';
+            }            
         }
-
-        //var gboard = game.getBoard();
-        //if (gboard[source].type === PAWN &&
-        //    (rank(target) === RANK_8 || rank(target) === RANK_1)) {
-        //    //var pieces = [QUEEN, ROOK, BISHOP, KNIGHT];
-        //    //for (var i = 0, len = pieces.length; i < len; i++) {
-        //    //    moves.push(build_move(board, from, to, flags, pieces[i]));
-        //    //}
-        //    debugger;
-        //}
-        //else {
-        //  //   moves.push(build_move(board, from, to, flags));
-        // }
-    
-
-      var move = game.move({
-        from: source,
-        to: target,
-        promotion: 'q' // NOTE: always promote to a queen for example simplicity
-      });
-      // illegal move
-      if (move === null) {
-        $log.log('Illegal move.. cannot move from ' + source + ' to ' + target);
-        return 'snapback';
-      }
-      
-      $log.debug('moved from ' + source + ' to ' + target);
+        else {
+            var move = makeMove('q');         
+            if (move === null) {                
+                return 'snapback';
+            }            
+        }
     };
     
     this.onSnapEnd = function(game, board, source, target, piece) {
