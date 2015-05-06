@@ -1083,7 +1083,9 @@ var CSS = {
   sparePiecesBottom: 'spare-pieces-bottom-ae20f',
   sparePiecesTop: 'spare-pieces-top-4028b',
   square: 'square-55d63',
-  white: 'white-1e1d7'
+  white: 'white-1e1d7',
+  promoteModalBg: 'promote-background-1212',
+  promoteModal: 'promote-modal-1212',
 };
 
 //------------------------------------------------------------------------------
@@ -1095,7 +1097,9 @@ var containerEl,
   boardEl,
   draggedPieceEl,
   sparePiecesTopEl,
-  sparePiecesBottomEl;
+  sparePiecesBottomEl,
+  promoteModalE1,
+  promoteModalBgE1;
 
 // constructor return object
 var widget = {};
@@ -1423,6 +1427,9 @@ function buildBoardContainer() {
       CSS.sparePiecesBottom + '"></div>';
   }
 
+  html += '<div class="' + CSS.promoteModal + '"></div>';
+  html += '<div class="' + CSS.promoteModalBg + '"></div>';
+
   html += '</div>';
 
   return html;
@@ -1534,6 +1541,34 @@ function buildSparePieces(color) {
   }
 
   return html;
+}
+
+function buildPromotePieces(color) {
+    var pieces = ['wQ', 'wR', 'wB', 'wN'];
+    if (color === 'black') {
+        pieces = ['bQ', 'bR', 'bB', 'bN'];
+    }
+
+    var html = '';
+    for (var i = 0; i < pieces.length; i++) {
+        html += buildPiece(pieces[i], false, SPARE_PIECE_ELS_IDS[pieces[i]]);
+    }    
+    return html;
+}
+
+function showPromoteDialog() {  
+    promoteModalE1.toggleClass("active", true);
+    promoteModalBgE1.toggleClass("active", true);
+}
+
+function closePromoteDialog(promotion) {        
+    promoteModalE1.toggleClass("active", false);
+    promoteModalBgE1.toggleClass("active", false);
+    cfg.promoteDisplay = null;
+    if (cfg.promoteCallback) {
+        cfg.promoteCallback(promotion);
+        cfg.promoteCallback = null;
+    }    
 }
 
 //------------------------------------------------------------------------------
@@ -1830,6 +1865,14 @@ function drawBoard() {
   boardEl.html(buildBoard(CURRENT_ORIENTATION));
   drawPositionInstant();
 
+  if (cfg.promoteDisplay) {
+      promoteModalE1.html(buildPromotePieces(cfg.promoteDisplay));
+      $('img').bind('click', function (evt) {                   
+          var piece = evt.target.getAttribute("data-piece")
+          closePromoteDialog(piece[1].toLowerCase());
+      });
+  }
+  
   if (cfg.sparePieces === true) {
     if (CURRENT_ORIENTATION === 'white') {
       sparePiecesTopEl.html(buildSparePieces('black'));
@@ -2325,6 +2368,14 @@ widget.start = function(useAnimation) {
   widget.position('start', useAnimation);
 };
 
+widget.choosePromotion = function (side, callback) {
+    cfg.promoteDisplay = side;
+    cfg.promoteCallback = callback;
+    showPromoteDialog();
+    drawBoard();
+};
+
+
 //------------------------------------------------------------------------------
 // Browser Events
 //------------------------------------------------------------------------------
@@ -2529,6 +2580,8 @@ function initDom() {
   // build board and save it in memory
   containerEl.html(buildBoardContainer());
   boardEl = containerEl.find('.' + CSS.board);
+  promoteModalE1 = containerEl.find('.' + CSS.promoteModal);
+  promoteModalBgE1 = containerEl.find('.' + CSS.promoteModalBg);
 
   if (cfg.sparePieces === true) {
     sparePiecesTopEl = containerEl.find('.' + CSS.sparePiecesTop);
@@ -2626,7 +2679,8 @@ var Chess = function(fen) {
 
   var SYMBOLS = 'pnbrqkPNBRQK';
 
-  var DEFAULT_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+  var DEFAULT_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';  
+  
 
   var POSSIBLE_RESULTS = ['1-0', '0-1', '1/2-1/2', '*'];
 
@@ -4176,42 +4230,40 @@ if (typeof define !== 'undefined') define( function () { return Chess;  });
     };
   
     this.onDrop = function(game, board, source, target) {
-        // see if the move is legal
-        debugger;
+        
+        var makeMove = function(promotionPiece){
+            return game.move({
+                from: source,
+                to: target,
+                promotion: promotionPiece
+            });          
+        };
+      
+        if (source == target)
+            return 'snapback';
 
-        function rank(i) {
-            return i >> 4;
-        }
-
-        var from = algebraic(source)
-        var to = algebraic(target)
-
-        var gboard = game.getBoard();
-        if (gboard[source].type === PAWN &&
-            (rank(target) === RANK_8 || rank(target) === RANK_1)) {
-            //var pieces = [QUEEN, ROOK, BISHOP, KNIGHT];
-            //for (var i = 0, len = pieces.length; i < len; i++) {
-            //    moves.push(build_move(board, from, to, flags, pieces[i]));
-            //}
-            debugger;
+        var sp = game.get(source);
+        if (sp && sp.type == 'p' && ((sp.color == 'w' && source[1] == '7') || (sp.color == 'b' && source[1] == '2'))) {
+            var color = null;
+            if (sp.color == 'w' && source[1] == '7')
+                color = 'white';
+            else if (sp.color == 'b' && source[1] == '2') {
+                color = 'black';
+            }
+            if (color) {
+                board.choosePromotion(color, function (promotionPiece) {
+                    makeMove(promotionPiece)
+                    board.position(game.fen());
+                });
+                return 'snapback';
+            }            
         }
         else {
-          //   moves.push(build_move(board, from, to, flags));
-         }
-    
-
-      var move = game.move({
-        from: source,
-        to: target,
-        promotion: 'q' // NOTE: always promote to a queen for example simplicity
-      });
-      // illegal move
-      if (move === null) {
-        $log.log('Illegal move.. cannot move from ' + source + ' to ' + target);
-        return 'snapback';
-      }
-      
-      $log.debug('moved from ' + source + ' to ' + target);
+            var move = makeMove('q');         
+            if (move === null) {                
+                return 'snapback';
+            }            
+        }
     };
     
     this.onSnapEnd = function(game, board, source, target, piece) {

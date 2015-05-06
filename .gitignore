@@ -6,3 +6,5 @@ bower_components/
 *.user
 *.log
 *.rdl.data
+*.mdf
+*.ldf

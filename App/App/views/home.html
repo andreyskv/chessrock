@@ -14,8 +14,8 @@
                       on-change="chessboardchanged"                                           
                       ></nywton-chessgame> 
   
-    <button type="button" class="btn btn-default pull-left" data-ng-click="game.reset(); board.start();" data-ng-disabled="game.game_over()">Reset</button>
-    <button type="button" class="btn pull-left" data-ng-click="game.undo(); board.position(game.fen())" data-ng-disabled="game.game_over()"><<</button>
+    <button type="button" class="btn btn-primary pull-left" data-ng-click="game.reset(); board.start();" data-ng-disabled="game.game_over()">Reset</button>
+    <button type="button" class="btn btn-info pull-left" data-ng-click="game.undo(); board.position(game.fen())" data-ng-disabled="game.game_over()"><<</button>
     <b>{{game.turn() | turnnote}}</b>
     <div>{{game.fen()}}</div>
     <!--<div>{{game.moves()}}</div>-->

@@ -84,3 +84,8 @@
 .strike {
     text-decoration: line-through;
 }
+
+.hoverwell:hover {
+  background-color: #52575c;
+  cursor: pointer;
+}

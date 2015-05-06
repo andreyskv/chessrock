@@ -206,7 +206,9 @@
     <Content Include="App\views\todos.html" />
     <Content Include="App\views\logs.html" />
     <Content Include="App\views\settings.html" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\chessboard.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\ajax.gif" />
     <Content Include="Content\Images\chesspieces\bB.png" />
@@ -237,6 +239,10 @@
     <Content Include="App\app.min.js.map">
       <DependentUpon>app.min.js</DependentUpon>
     </Content>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Content\style.css.bundle" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
