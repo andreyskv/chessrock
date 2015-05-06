@@ -216,7 +216,9 @@ var CSS = {
   sparePiecesBottom: 'spare-pieces-bottom-ae20f',
   sparePiecesTop: 'spare-pieces-top-4028b',
   square: 'square-55d63',
-  white: 'white-1e1d7'
+  white: 'white-1e1d7',
+  promoteModalBg: 'promote-background-1212',
+  promoteModal: 'promote-modal-1212',
 };
 
 //------------------------------------------------------------------------------
@@ -228,7 +230,9 @@ var containerEl,
   boardEl,
   draggedPieceEl,
   sparePiecesTopEl,
-  sparePiecesBottomEl;
+  sparePiecesBottomEl,
+  promoteModalE1,
+  promoteModalBgE1;
 
 // constructor return object
 var widget = {};
@@ -556,6 +560,9 @@ function buildBoardContainer() {
       CSS.sparePiecesBottom + '"></div>';
   }
 
+  html += '<div class="' + CSS.promoteModal + '"></div>';
+  html += '<div class="' + CSS.promoteModalBg + '"></div>';
+
   html += '</div>';
 
   return html;
@@ -667,6 +674,34 @@ function buildSparePieces(color) {
   }
 
   return html;
+}
+
+function buildPromotePieces(color) {
+    var pieces = ['wQ', 'wR', 'wB', 'wN'];
+    if (color === 'black') {
+        pieces = ['bQ', 'bR', 'bB', 'bN'];
+    }
+
+    var html = '';
+    for (var i = 0; i < pieces.length; i++) {
+        html += buildPiece(pieces[i], false, SPARE_PIECE_ELS_IDS[pieces[i]]);
+    }    
+    return html;
+}
+
+function showPromoteDialog() {  
+    promoteModalE1.toggleClass("active", true);
+    promoteModalBgE1.toggleClass("active", true);
+}
+
+function closePromoteDialog(promotion) {        
+    promoteModalE1.toggleClass("active", false);
+    promoteModalBgE1.toggleClass("active", false);
+    cfg.promoteDisplay = null;
+    if (cfg.promoteCallback) {
+        cfg.promoteCallback(promotion);
+        cfg.promoteCallback = null;
+    }    
 }
 
 //------------------------------------------------------------------------------
@@ -963,6 +998,14 @@ function drawBoard() {
   boardEl.html(buildBoard(CURRENT_ORIENTATION));
   drawPositionInstant();
 
+  if (cfg.promoteDisplay) {
+      promoteModalE1.html(buildPromotePieces(cfg.promoteDisplay));
+      $('img').bind('click', function (evt) {                   
+          var piece = evt.target.getAttribute("data-piece")
+          closePromoteDialog(piece[1].toLowerCase());
+      });
+  }
+  
   if (cfg.sparePieces === true) {
     if (CURRENT_ORIENTATION === 'white') {
       sparePiecesTopEl.html(buildSparePieces('black'));
@@ -1458,6 +1501,14 @@ widget.start = function(useAnimation) {
   widget.position('start', useAnimation);
 };
 
+widget.choosePromotion = function (side, callback) {
+    cfg.promoteDisplay = side;
+    cfg.promoteCallback = callback;
+    showPromoteDialog();
+    drawBoard();
+};
+
+
 //------------------------------------------------------------------------------
 // Browser Events
 //------------------------------------------------------------------------------
@@ -1662,6 +1713,8 @@ function initDom() {
   // build board and save it in memory
   containerEl.html(buildBoardContainer());
   boardEl = containerEl.find('.' + CSS.board);
+  promoteModalE1 = containerEl.find('.' + CSS.promoteModal);
+  promoteModalBgE1 = containerEl.find('.' + CSS.promoteModalBg);
 
   if (cfg.sparePieces === true) {
     sparePiecesTopEl = containerEl.find('.' + CSS.sparePiecesTop);

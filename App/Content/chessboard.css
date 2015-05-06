@@ -75,3 +75,30 @@
 .piece-417db {
     cursor: pointer;
 }
+
+.promote-background-1212 {
+        display: none;
+        background-color: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .20;        
+        filter: alpha(opacity=20);
+        z-index: 999;
+    }
+    
+.promote-modal-1212 {
+    display: none;
+    background-color: white;
+    position: relative;
+    left: 25%;
+    margin: -50% auto;    
+    float: left;
+    z-index: 1000;
+}
+
+.promote-modal-1212.active, .promote-background.active {
+    display: block;
+}
