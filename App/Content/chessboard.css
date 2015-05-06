@@ -95,7 +95,8 @@
     position: relative;
     left: 25%;
     margin: -50% auto;    
-    float: left;
+    float: left;    
+    box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.78);
     z-index: 1000;
 }
 
