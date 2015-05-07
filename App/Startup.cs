@@ -3,6 +3,8 @@ using App.Plugins;
 using AutoMapper;
 using Microsoft.Owin;
 using Owin;
+using Autofac;
+using Microsoft.AspNet.SignalR;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 [assembly: OwinStartup(typeof(App.Startup))]
@@ -21,23 +23,24 @@ namespace App
 
             //Log trafic using Log4Net
             app.Use(typeof(Logging));
-
-            //Configure SignalR self host
-            ConfigureSignalR(app);
-
-            var config = new HttpConfiguration();
-
+              
             //Configure AutoFac (http://autofac.org/) for DependencyResolver
             //For more information visit http://www.asp.net/web-api/overview/extensibility/using-the-web-api-dependency-resolver
-            ConfigureComposition(config);
+            IContainer container = RegisterServices();
 
             //Configure WebApi
+            var config = new HttpConfiguration();
+            config.DependencyResolver = new App.Common.AutoFacDependencyResolver(container);         
             ConfigureWebApi(config);
             app.UseWebApi(config);
 
-         //   var eng = new App.Models.UciEngineManager();
-           // eng.TestEngine();
+            //Configure SignalR self host   
+            var hubConfiguration = new HubConfiguration();
+            hubConfiguration.Resolver = new Autofac.Integration.SignalR.AutofacDependencyResolver(container);           
+            ConfigureSignalR(app, hubConfiguration);
+
+            container.Resolve<App.Game.IChessGameManager>();
         }
-        
+
     }
 }

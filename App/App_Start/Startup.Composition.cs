@@ -3,12 +3,17 @@ using App.Common;
 using App.Identity;
 using App.Models;
 using Autofac;
+using Microsoft.AspNet.SignalR;
+using App.Game;
+using Autofac.Core;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace App
 {
     public partial class Startup
     {
-        private static IContainer RegisterServices()
+        public static IContainer RegisterServices()
         {
             var builder = new ContainerBuilder();
 
@@ -24,17 +29,16 @@ namespace App
             //    .As<ILoginProvider>()
             //    .SingleInstance();
 
-            builder.RegisterType<LocalUserLoginProvider>()
-                .As<ILoginProvider>()
-                .SingleInstance();
+            builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();
+            builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();            
+            builder.RegisterType<ChessGameManager>().WithParameter(ResolvedParameter.ForNamed<IHubConnectionContext<IChessHub>>("Context")).As<IChessGameManager>().SingleInstance();
+
+            var clients = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<ChessHub,IChessHub>().Clients;
+            builder.Register(c => clients).Named<IHubConnectionContext<IChessHub>>("Context");
 
             return builder.Build();
         } 
         
-        public static void ConfigureComposition(HttpConfiguration config)
-        {
-            IContainer container = RegisterServices();
-            config.DependencyResolver = new AutoFacDependencyResolver(container);
-        }
+
     }
 }

@@ -51,24 +51,24 @@
             //});
         });
 
-        $scope.$on('$viewContentLoaded', function (event) {
+        //$scope.$on('$viewContentLoaded', function (event) {
 
-            //debugger;
-            //$scope.$apply();
-            //$scope.history = $scope.game.history();
-            //debugger;
-            //$scope.board2 = new ChessBoard('board2', {
-            //    draggable: true,
-            //    dropOffBoard: 'trash',
-            //    sparePieces: true
-            //});
-            ////$scope.board2.start();
-            //$('#startBtn').on('click', $scope.board2.start);
-            //$('#clearBtn').on('click', $scope.board2.clear);
+        //    //debugger;
+        //    //$scope.$apply();
+        //    //$scope.history = $scope.game.history();
+        //    //debugger;
+        //    //$scope.board2 = new ChessBoard('board2', {
+        //    //    draggable: true,
+        //    //    dropOffBoard: 'trash',
+        //    //    sparePieces: true
+        //    //});
+        //    ////$scope.board2.start();
+        //    //$('#startBtn').on('click', $scope.board2.start);
+        //    //$('#clearBtn').on('click', $scope.board2.clear);
 
-           // $('#startBtn').on('click',$scope.board.clear);
-            //$scope.game.reset()
-        });
+        //   // $('#startBtn').on('click',$scope.board.clear);
+        //    //$scope.game.reset()
+        //});
 
     }]);
     //#endregion

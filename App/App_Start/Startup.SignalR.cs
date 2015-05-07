@@ -7,7 +7,7 @@ namespace App
 {
 	public partial class Startup
 	{
-	    public static void ConfigureSignalR(IAppBuilder app)
+        public static void ConfigureSignalR(IAppBuilder app, HubConfiguration hubConfiguration)
 	    {
             app.Map("/signalr", map =>
             {
@@ -16,14 +16,6 @@ namespace App
                 // configure the set of origins and/or http verbs by
                 // providing a cors options with a different policy.
                 map.UseCors(CorsOptions.AllowAll);
-
-                var hubConfiguration = new HubConfiguration
-                {
-                    // You can enable JSONP by uncommenting line below.
-                    // JSONP requests are insecure but some older browsers (and some
-                    // versions of IE) require JSONP to work cross domain
-                    // EnableJSONP = true
-                };
 
                 // Run the SignalR pipeline. We're not using MapSignalR
                 // since this branch is already runs under the "/signalr"

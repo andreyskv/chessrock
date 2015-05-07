@@ -3,15 +3,17 @@ using System.Diagnostics;
 using System.Net;
 using System.IO;
 
-namespace App.Models
+namespace App.Game
 {
-    public class UciEngineManager
+
+    public class ChessMoveEventDataArgs : EventArgs
     {
-        class MoveEventDataArgs : EventArgs
-        {
-            public string BestMove { get; set; }
-        }
+        public string BestMove { get; set; }
+    }
         
+
+    public class UciEngineManager
+    {      
         public event EventHandler BestMoveFoundEvent;
         private Process _engine;
    
@@ -63,7 +65,7 @@ namespace App.Models
                 Debug.WriteLine("UCI::{0}::{1}", ((Process)sender).Id, e.Data);                
                 var move = TryFindBestMove(e.Data);
                 if (!string.IsNullOrEmpty(move))
-                    BestMoveFoundEvent(this, new MoveEventDataArgs() {BestMove = move});
+                    BestMoveFoundEvent(this, new ChessMoveEventDataArgs() { BestMove = move });
             }
         }
         
@@ -133,7 +135,7 @@ namespace App.Models
 
         void bestmove_Event(object sender, EventArgs e)
         {
-            Debug.WriteLine(String.Format("The best move was found. It is {0}", ((MoveEventDataArgs)e).BestMove));
+            Debug.WriteLine(String.Format("The best move was found. It is {0}", ((ChessMoveEventDataArgs)e).BestMove));
             SendEngineCommand("quit");
             TerminateEngine();
         }
