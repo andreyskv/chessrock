@@ -1049,7 +1049,7 @@ function setCurrentPosition(position) {
   // run their onChange function
   if (cfg.hasOwnProperty('onChange') === true &&
     typeof cfg.onChange === 'function') {
-    cfg.onChange(oldPos, newPos);
+      cfg.onChange(oldFen, newFen);
   }
 
   // update state
