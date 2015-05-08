@@ -45,7 +45,7 @@ namespace App
             //ConfigureSignalR(app, hubConfiguration);
             app.MapSignalR(hubConfiguration);
           
-            //GlobalHost.DependencyResolver = hubConfiguration.Resolver;
+            GlobalHost.DependencyResolver = hubConfiguration.Resolver;
         }
 
     }

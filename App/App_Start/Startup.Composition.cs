@@ -32,10 +32,11 @@ namespace App
             
             builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();
             builder.RegisterType<ChessHub>();
-                              
-            builder.RegisterType<ChessGameManager>().WithParameter(ResolvedParameter.ForNamed<IHubConnectionContext<IChessHub>>("Context")).As<IChessGameManager>().SingleInstance();            
-            var clients = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<ChessHub,IChessHub>().Clients;            
-            builder.Register(c => clients).Named<IHubConnectionContext<IConnectionManager>>("Context");
+
+            builder.RegisterType<ChessGameManager>().As<IChessGameManager>().SingleInstance();              
+            //builder.RegisterType<ChessGameManager>().WithParameter(ResolvedParameter.ForNamed<IHubConnectionContext<IChessHub>>("Context")).As<IChessGameManager>().SingleInstance();            
+            //var clients = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<ChessHub,IChessHub>().Clients;            
+            //builder.Register(c => clients).Named<IHubConnectionContext<IConnectionManager>>("Context");
       
             return builder.Build();
         } 

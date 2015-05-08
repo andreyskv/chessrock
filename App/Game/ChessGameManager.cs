@@ -9,11 +9,12 @@ namespace App.Game
     public class ChessGameManager : IChessGameManager
     {
         private UciEngineManager _uciEngine = new UciEngineManager();               
-        IHubConnectionContext<IChessHub> Clients { get; set; }
+        IHubConnectionContext<dynamic> Clients { get; set; }
                 
-        public ChessGameManager(IHubConnectionContext<IChessHub> clients)
-        {             
-            Clients = clients;
+        //public ChessGameManager(IHubConnectionContext<IChessHub> clients)
+        public ChessGameManager()
+        {
+            Clients = GlobalHost.ConnectionManager.GetHubContext<ChessHub>().Clients;
             _uciEngine.LoadEngine("stockfish.exe");
             _uciEngine.BestMoveFoundEvent += bestmove_Event;
            // StartNewGame();
