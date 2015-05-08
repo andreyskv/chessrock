@@ -8,6 +8,7 @@ using App.Game;
 using Autofac.Core;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Infrastructure;
+using Autofac.Integration.SignalR;
 
 namespace App
 {
@@ -28,14 +29,14 @@ namespace App
             //builder.RegisterInstance(new DomanUserLoginProvider("unevol.cu"))
             //    .As<ILoginProvider>()
             //    .SingleInstance();
-
+            
             builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();
-            builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();            
-            builder.RegisterType<ChessGameManager>().WithParameter(ResolvedParameter.ForNamed<IHubConnectionContext<IChessHub>>("Context")).As<IChessGameManager>().SingleInstance();
-
-            var clients = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<ChessHub,IChessHub>().Clients;
-            builder.Register(c => clients).Named<IHubConnectionContext<IChessHub>>("Context");
-
+            builder.RegisterType<ChessHub>();
+                              
+            builder.RegisterType<ChessGameManager>().WithParameter(ResolvedParameter.ForNamed<IHubConnectionContext<IChessHub>>("Context")).As<IChessGameManager>().SingleInstance();            
+            var clients = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<ChessHub,IChessHub>().Clients;            
+            builder.Register(c => clients).Named<IHubConnectionContext<IConnectionManager>>("Context");
+      
             return builder.Build();
         } 
         

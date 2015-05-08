@@ -5,6 +5,11 @@ using Microsoft.Owin;
 using Owin;
 using Autofac;
 using Microsoft.AspNet.SignalR;
+using System.Web.Routing;
+using App.Game;
+using Microsoft.AspNet.SignalR.Hubs;
+using Autofac.Core;
+using Microsoft.AspNet.SignalR.Infrastructure;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 [assembly: OwinStartup(typeof(App.Startup))]
@@ -37,9 +42,10 @@ namespace App
             //Configure SignalR self host   
             var hubConfiguration = new HubConfiguration();
             hubConfiguration.Resolver = new Autofac.Integration.SignalR.AutofacDependencyResolver(container);           
-            ConfigureSignalR(app, hubConfiguration);
-
-            container.Resolve<App.Game.IChessGameManager>();
+            //ConfigureSignalR(app, hubConfiguration);
+            app.MapSignalR(hubConfiguration);
+          
+            //GlobalHost.DependencyResolver = hubConfiguration.Resolver;
         }
 
     }

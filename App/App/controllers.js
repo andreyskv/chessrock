@@ -7,17 +7,25 @@
     controllers.controller('HomeCtrl', ['$scope', '$signalR', function ($scope, $signalR) {
         $scope.title = 'Home';        
        
-        $scope.$watch('game', function () {
-            if ($scope.game) {                
-                $scope.history = $scope.game.history;
-                //$scope.$safeApply();
-            }
-        })
+        //$scope.$watch('game', function () {
+        //    if ($scope.game) {                
+        //        $scope.history = $scope.game.history;
+        //        //$scope.$safeApply();
+        //    }
+        //})
 
+        
         
         $scope.onBoardChanged = function onBoardChanged(oldPosition, newPosition)
         {
-          //  debugger;
+            //  debugger;
+
+       //     .move({ from: 'h7', <- where the 'move' is a move object (additional
+       //*         to :'h8',      fields are ignored)
+       //     *         promotion: 'q',
+       //     *      })
+            $signalR.$emit('chessClientMoveEvent', newPosition);
+            $scope.game.move()
         }
 
         //$scope.onChange = function onChange(oldPosition, newPosition)
@@ -42,7 +50,7 @@
 
        
 
-        $signalR.$on('chessMoveEvent', function (e, chessMoveEvent) {
+        $signalR.$on('chessServerMoveEvent', function (e, chessMoveEvent) {
 
             alert(chessMoveEvent);
             //$safeApply($scope, function () {

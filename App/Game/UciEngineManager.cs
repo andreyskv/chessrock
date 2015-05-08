@@ -129,16 +129,16 @@ namespace App.Game
             SendEngineCommand("uci");
             SendEngineCommand("ucinewgame");
 
-            BestMoveFoundEvent+= bestmove_Event;
+            //BestMoveFoundEvent+= bestmove_Event;
             StartSearchingMove(fen, movetime);           
         }
 
-        void bestmove_Event(object sender, EventArgs e)
-        {
-            Debug.WriteLine(String.Format("The best move was found. It is {0}", ((ChessMoveEventDataArgs)e).BestMove));
-            SendEngineCommand("quit");
-            TerminateEngine();
-        }
+        //void bestmove_Event(object sender, EventArgs e)
+        //{
+        //    Debug.WriteLine(String.Format("The best move was found. It is {0}", ((ChessMoveEventDataArgs)e).BestMove));
+        //    SendEngineCommand("quit");
+        //    TerminateEngine();
+        //}
 
         //uci
         //ucinewgame

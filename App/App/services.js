@@ -134,10 +134,30 @@
         //$.connection.hub.start();
 
         var chess = $.connection.chessHub;
-        chess.client.broadcastMessage = function (name, message) {
-            self.$emit('chessMoveEvent', chessMoveEvent);
+       
+        chess.client.sendChessMoveToClient = function (move) {
+            debugger;
+            self.$emit('chessServerMoveEvent', move);
         };
-        $.connection.hub.start();
+        $.connection.hub.start().done(function () {
+    
+            chess.server.startGame();
+            self.$on('chessClientMoveEvent', function (e, fenpos) {
+                debugger;
+                chess.server.fen(fenpos);
+            });
+
+        });
+
+
+        //$.connection.hub.start().done(function () {
+        //    $('#sendmessage').click(function () {
+        //        // Call the Send method on the hub. 
+        //        chat.server.send($('#displayname').val(), $('#message').val());
+        //        // Clear text box and reset focus for next comment. 
+        //        $('#message').val('').focus();
+        //    });
+        //});
 
         return self;
     }]);
