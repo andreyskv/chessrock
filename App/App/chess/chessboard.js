@@ -420,7 +420,7 @@ function expandConfig() {
   CURRENT_ORIENTATION = cfg.orientation;
 
   // default for showNotation is true
-  if (cfg.showNotation !== false) {
+  if (cfg.showNotation !== false) {     
     cfg.showNotation = true;
   }
 
@@ -505,14 +505,17 @@ function expandConfig() {
 // fudge factor, and then keep reducing until we find an exact mod 8 for
 // our square size
 function calculateSquareSize() {
-  var containerWidth = parseInt(containerEl.css('width'), 10);
+  var containerWidth = parseInt(containerEl.width(), 10);
+
 
   // defensive, prevent infinite loop
   if (! containerWidth || containerWidth <= 0) {
     return 0;
   }
 
-  var boardWidth = containerWidth;
+    // pad one pixel
+  var boardWidth = containerWidth - 1;
+
 
   while (boardWidth % 8 !== 0 && boardWidth > 0) {
     boardWidth--;
@@ -610,6 +613,22 @@ function buildBoard(orientation) {
         'style="width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px" ' +
         'id="' + SQUARE_ELS_IDS[square] + '" ' +
         'data-square="' + square + '">';
+
+      if (cfg.showNotation === true) {
+          // alpha notation
+          if ((orientation === 'white' && row === 1) ||
+              (orientation === 'black' && row === 8)) {
+              html += '<div class="' + CSS.notation + ' ' + CSS.alpha + '">' +
+                alpha[j] + '</div>';
+          }
+
+          // numeric notation
+          if (j === 0) {
+              html += '<div class="' + CSS.notation + ' ' + CSS.numeric + '">' +
+                row + '</div>';
+          }
+      }
+
 
       html += '</div>'; // end .square
 
@@ -720,12 +739,14 @@ function animateSquareToSquare(src, dest, piece, completeFn) {
   var animatedPieceId = createId();
   $('body').append(buildPiece(piece, true, animatedPieceId));
   var animatedPieceEl = $('#' + animatedPieceId);
-  animatedPieceEl.css({
-    display: '',
-    position: 'absolute',
-    top: srcSquarePosition.top,
-    left: srcSquarePosition.left
-  });
+
+  if (srcSquarePosition)
+      animatedPieceEl.css({
+        display: '',
+        position: 'absolute',
+        top: srcSquarePosition.top,
+        left: srcSquarePosition.left
+      });
 
   // remove original piece from source square
   srcSquareEl.find('.' + CSS.piece).remove();
@@ -793,6 +814,10 @@ function animateSparePieceToSquare(piece, dest, completeFn) {
 
 // execute an array of animations
 function doAnimations(a, oldPos, newPos) {
+   if (a.length === 0) {
+       return;
+   }
+
   ANIMATION_HAPPENING = true;
 
   var numFinished = 0;
@@ -985,12 +1010,15 @@ function calculateAnimations(pos1, pos2) {
 //------------------------------------------------------------------------------
 
 function drawPositionInstant() {
+  // clear the board
+  boardEl.find('.' + CSS.piece).remove();
+
   // add the pieces
   for (var i in CURRENT_POSITION) {
     if (CURRENT_POSITION.hasOwnProperty(i) !== true) continue;
-    if (DRAGGING_A_PIECE && DRAGGED_PIECE_SOURCE === i) continue;
 
-    $('#' + SQUARE_ELS_IDS[i]).html(buildPiece(CURRENT_POSITION[i]));
+    $('#' + SQUARE_ELS_IDS[i]).append(buildPiece(CURRENT_POSITION[i]));
+
   }
 }
 
