@@ -363,10 +363,30 @@
         //$.connection.hub.start();
 
         var chess = $.connection.chessHub;
-        chess.client.broadcastMessage = function (name, message) {
-            self.$emit('chessMoveEvent', chessMoveEvent);
+       
+        chess.client.sendChessMoveToClient = function (move) {
+            debugger;
+            self.$emit('chessServerMoveEvent', move);
         };
-        $.connection.hub.start();
+        $.connection.hub.start().done(function () {
+    
+            chess.server.startGame();
+            self.$on('chessClientMoveEvent', function (e, fenpos) {
+                debugger;
+                chess.server.fen(fenpos);
+            });
+
+        });
+
+
+        //$.connection.hub.start().done(function () {
+        //    $('#sendmessage').click(function () {
+        //        // Call the Send method on the hub. 
+        //        chat.server.send($('#displayname').val(), $('#message').val());
+        //        // Clear text box and reset focus for next comment. 
+        //        $('#message').val('').focus();
+        //    });
+        //});
 
         return self;
     }]);
@@ -527,48 +547,26 @@
     controllers.controller('HomeCtrl', ['$scope', '$signalR', function ($scope, $signalR) {
         $scope.title = 'Home';        
        
-        $scope.$watch('game', function () {
-            if ($scope.game) {                
-                $scope.history = $scope.game.history;
-                //$scope.$safeApply();
-            }
-        })
+        //$scope.$watch('game', function () {
+        //    if ($scope.game) {                
+        //        $scope.history = $scope.game.history;
+        //        //$scope.$safeApply();
+        //    }
+        //})
 
+        $scope.makeEngineMove = function engineMove() {
+            var position = $scope.game.fen()
+            $signalR.$emit('chessClientMoveEvent', position);
+        }
         
         $scope.onBoardChanged = function onBoardChanged(oldPosition, newPosition)
-        {
-          //  debugger;
+        {         
+            //if ($scope.game.turn() == 'b')
+              //  $scope.makeEngineMove();
         }
-
-        //$scope.onChange = function onChange(oldPosition, newPosition)
-        //{
-        //    debugger;
-        //}
-
-        //$scope.$watch('board', function () {
-        //    if ($scope.board) {
-        //        //$scope.board.onChange(function () {
-
-        //        //    debugger;
-        //        //});
-
-        //        $scope.board.chessboardchanged = function () {
-        //            debugger;
-        //        }
-        //    }
-        //    //cope.history = $scope.game.history;
-        //    //$scope.$safeApply();
-        //});
-
-       
-
-        $signalR.$on('chessMoveEvent', function (e, chessMoveEvent) {
-
-            alert(chessMoveEvent);
-            //$safeApply($scope, function () {
-            //    loggedEvent.class = logsType[loggedEvent.Level];
-            //    $scope.logs.splice(0, 0, loggedEvent);
-            //});
+        $signalR.$on('chessServerMoveEvent', function (e, moveFromServer) {            
+            $scope.game.move(moveFromServer);
+            $scope.board.position($scope.game.fen());
         });
 
         //$scope.$on('$viewContentLoaded', function (event) {
@@ -1916,7 +1914,7 @@ function setCurrentPosition(position) {
   // run their onChange function
   if (cfg.hasOwnProperty('onChange') === true &&
     typeof cfg.onChange === 'function') {
-    cfg.onChange(oldPos, newPos);
+      cfg.onChange(oldFen, newFen);
   }
 
   // update state

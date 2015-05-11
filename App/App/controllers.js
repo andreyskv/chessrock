@@ -14,49 +14,19 @@
         //    }
         //})
 
-        
+        $scope.makeEngineMove = function engineMove() {
+            var position = $scope.game.fen()
+            $signalR.$emit('chessClientMoveEvent', position);
+        }
         
         $scope.onBoardChanged = function onBoardChanged(oldPosition, newPosition)
-        {
-            //  debugger;
-
-       //     .move({ from: 'h7', <- where the 'move' is a move object (additional
-       //*         to :'h8',      fields are ignored)
-       //     *         promotion: 'q',
-       //     *      })
-            $signalR.$emit('chessClientMoveEvent', newPosition);
-            $scope.game.move()
+        {         
+            //if ($scope.game.turn() == 'b')
+              //  $scope.makeEngineMove();
         }
-
-        //$scope.onChange = function onChange(oldPosition, newPosition)
-        //{
-        //    debugger;
-        //}
-
-        //$scope.$watch('board', function () {
-        //    if ($scope.board) {
-        //        //$scope.board.onChange(function () {
-
-        //        //    debugger;
-        //        //});
-
-        //        $scope.board.chessboardchanged = function () {
-        //            debugger;
-        //        }
-        //    }
-        //    //cope.history = $scope.game.history;
-        //    //$scope.$safeApply();
-        //});
-
-       
-
-        $signalR.$on('chessServerMoveEvent', function (e, chessMoveEvent) {
-
-            alert(chessMoveEvent);
-            //$safeApply($scope, function () {
-            //    loggedEvent.class = logsType[loggedEvent.Level];
-            //    $scope.logs.splice(0, 0, loggedEvent);
-            //});
+        $signalR.$on('chessServerMoveEvent', function (e, moveFromServer) {            
+            $scope.game.move(moveFromServer);
+            $scope.board.position($scope.game.fen());
         });
 
         //$scope.$on('$viewContentLoaded', function (event) {

@@ -89,6 +89,11 @@
   background-color: #52575c;
   cursor: pointer;
 }
+
+.wrap{    
+    -ms-word-wrap:break-word;
+    word-wrap:break-word;
+}
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
 /*!
  * bootswatch v3.3.4+1

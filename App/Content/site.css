@@ -89,3 +89,8 @@
   background-color: #52575c;
   cursor: pointer;
 }
+
+.wrap{    
+    -ms-word-wrap:break-word;
+    word-wrap:break-word;
+}
