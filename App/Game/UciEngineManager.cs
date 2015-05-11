@@ -125,7 +125,7 @@ namespace App.Game
             var fen = "rn1qkbnr/pppbpppp/8/3p4/Q2P4/2P5/PP2PPPP/RNB1KBNR b KQkq - 2 3";
             var movetime = 2000;
 
-            LoadEngine("stockfish.exe");                       
+            LoadEngine("stockfish.exe");
             SendEngineCommand("uci");
             SendEngineCommand("ucinewgame");
 

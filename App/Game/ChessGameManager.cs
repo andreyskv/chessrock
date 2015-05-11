@@ -15,7 +15,10 @@ namespace App.Game
         public ChessGameManager()
         {
             Clients = GlobalHost.ConnectionManager.GetHubContext<ChessHub>().Clients;
-            _uciEngine.LoadEngine("stockfish.exe");
+            //_uciEngine.LoadEngine("stockfish.exe");
+              _uciEngine.LoadEngine("murka2.exe");
+            //_uciEngine.LoadEngine("HiarcsX50UCI.exe");
+            
             _uciEngine.BestMoveFoundEvent += bestmove_Event;
            // StartNewGame();
         }
@@ -23,20 +26,31 @@ namespace App.Game
         public void StartNewGame()
         {
             _uciEngine.SendEngineCommand("uci");
-            _uciEngine.SendEngineCommand("ucinewgame");
-          
+            _uciEngine.SendEngineCommand("ucinewgame");          
         }
 
         public void PassClientMoveToEngine(string fen)
         {
-            _uciEngine.StartSearchingMove(fen, 2000);   
+            _uciEngine.StartSearchingMove(fen, 400);   
         }
 
         public void bestmove_Event(object sender, EventArgs e)
-        {
-            //var context = GlobalHost.ConnectionManager.GetHubContext<ChessHub, IChessHub>();            
-           // GlobalHost.ConnectionManager.GetHubContext<ChessHub>().Clients.All.sendChessMoveToClient("test");
-            Clients.All.sendChessMoveToClient(((ChessMoveEventDataArgs)e).BestMove);
+        {      
+
+       //     .move({ from: 'h7', <- where the 'move' is a move object (additional
+       //*         to :'h8',      fields are ignored)
+       //*         promotion: 'q',
+       //*      })
+            var move = ((ChessMoveEventDataArgs)e).BestMove;
+
+            var moveClientFormat = new
+            {
+                from = move.Substring(0, 2),
+                to = move.Substring(2, 2),
+                promotion = move.Length == 5 ? move.Substring(4, 1) : ""
+            };
+
+            Clients.All.sendChessMoveToClient(moveClientFormat);
         }
 
     }
