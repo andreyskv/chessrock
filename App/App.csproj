@@ -237,8 +237,6 @@
     </Content>
     <Content Include="index.html" />
     <Content Include="redame.txt" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="App_Start\Startup.SignalR.cs" />
     <Content Include="App\app.min.js.map">
       <DependentUpon>app.min.js</DependentUpon>
     </Content>
@@ -264,8 +262,6 @@
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="Common\ApiControllerExtension.cs" />
     <Compile Include="Common\AutoFacDependencyResolver.cs" />
-    <Compile Include="App_Start\Startup.Composition.cs" />
-    <Compile Include="App_Start\Startup.Mapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
     <Compile Include="Controllers\TodoListController.cs" />
@@ -289,7 +285,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Compile Include="App_Start\Startup.WebApi.cs" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -298,6 +293,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Start\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
