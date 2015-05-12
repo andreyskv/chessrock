@@ -133,20 +133,16 @@
         //};
         //$.connection.hub.start();
 
-        var chess = $.connection.chessHub;
-       
-        chess.client.sendChessMoveToClient = function (move) {
-            debugger;
+        var chess = $.connection.chessHub;       
+        chess.client.sendChessMoveToClient = function (move) {            
             self.$emit('chessServerMoveEvent', move);
         };
-        $.connection.hub.start().done(function () {
-    
+
+        $.connection.hub.start().done(function () {    
             chess.server.startGame();
-            self.$on('chessClientMoveEvent', function (e, fenpos) {
-                debugger;
+            self.$on('chessClientMoveEvent', function (e, fenpos) {                
                 chess.server.fen(fenpos);
             });
-
         });
 
 

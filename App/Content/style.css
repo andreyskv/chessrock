@@ -93,6 +93,7 @@
 .wrap{    
     -ms-word-wrap:break-word;
     word-wrap:break-word;
+    text-align:left;
 }
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
 /*!

@@ -28,9 +28,35 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li data-ng-class="getClass('/home')"><a href="#!/home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                        <li data-ng-class="getClass('/todos')"><a href="#!/todos"><i class="glyphicon glyphicon-tasks"></i> Todos</a></li>
+
+                        <li data-ng-class="getClass('/home')" class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#!/home"><i class="glyphicon glyphicon-home"></i> Home<b class="caret"></b></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="#!/home/1">Play White</a></li>
+                                <li><a href="#!/home">Play Black</a></li>
+                                <li><a href="#!/home">Engine vs Engine</a></li>
+                                <li><a href="#!/home">Player vs Player</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Setup</a></li>
+                            </ul>
+
+                        </li>
+                        <li data-ng-class="getClass('/todos')"><a href="#!/todos"><i class="glyphicon glyphicon-tasks"></i> Database</a></li>
                         <li data-ng-class="getClass('/about')"><a href="#!/about"><i class="glyphicon glyphicon-question-sign"></i> About</a></li>
+
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">New Game<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Play White</a></li>
+                                <li><a href="#">Play Black</a></li>
+                                <li><a href="#">Engine vs Engine</a></li>
+                                <li><a href="#">Player vs Player</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Setup</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li data-ng-if="userName && userName.length" data-ng-cloak>

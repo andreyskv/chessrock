@@ -75,7 +75,7 @@
     var directive = {
       restrict: 'E',
       template: '<div>' +
-        '<nywton-chessboard board="board" position="\'start\'" draggable="true" on-change="onChange" on-drag-start-cb="onDragStart" on-snap-end="onSnapEnd" on-drop="onDrop"></nywton-chessboard>' +
+        '<nywton-chessboard board="board" position="\'start\'" showNotation="true" draggable="true" on-change="onChange" on-drag-start-cb="onDragStart" on-snap-end="onSnapEnd" on-drop="onDrop"></nywton-chessboard>' +
       '</div>',
       replace:false,
       scope : {

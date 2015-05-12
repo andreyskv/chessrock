@@ -13,21 +13,24 @@
     <div class="row">
         <div class="col-md-12">
 
-
             <nywton-chessgame data-game="game" nywton-chess-autoresize data-board="board"></nywton-chessgame>
             <button type="button" class="btn btn-primary pull-left" data-ng-click="game.reset(); board.start();">Reset</button>
 
             <button type="button" class="btn pull-left" data-ng-click="makeEngineMove()" data-ng-disabled="game.game_over()">Go</button>
 
-            <button type="button" class="btn btn-info pull-left" data-ng-click="game.undo(); board.position(game.fen())" data-ng-disabled="game.game_over()"><<</button>
+            <!--<button type="button" class="btn btn-info pull-left" data-ng-click="game.undo(); board.position(game.fen())" data-ng-disabled="game.game_over()"><<</button>-->
+
+            <button type="button" class="btn btn-info pull-left" data-ng-click="moveBack()" data-ng-disabled="game.history().length == 0"><<</button>
+            <button type="button" class="btn btn-info pull-left" data-ng-click="moveForward()" data-ng-disabled="movesBackStack && movesBackStack.length == 0">>></button>
+
             <b>{{game.turn() | turnnote}}</b>
             <div>{{game.fen()}}</div>
-        </div>
-
-        <div class="col-md-12 wrap">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+        </div>        
+        <div class="col-md-12 wrap">{{game.pgn()}}</div>
     </div>
     <div class="row">
-        
+        <button type="button" class="btn pull-left" data-ng-click="save()"><<</button>
+
         <!--<div>{{game.moves()}}</div>-->
         <!--<div class="pull-left col-md-6>{{game.history({verbose:false})}}</div>-->
         

@@ -18,4 +18,12 @@
         });
     }]);
     //#endregion
+
+    resources.factory('CurrentGame',['$resource', '$path', function ($resource, $path) {
+        return $resource($path('api/CurrentGame/:id'), {id: '@Id'}, { 
+            get: { method: 'GET' },
+            update: { method: 'PUT' }
+        });
+    }]);
+
 })(window.angular);

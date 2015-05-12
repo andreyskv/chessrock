@@ -48,7 +48,8 @@
     //#region Configure routes
     app.config(['$routeProvider', '$locationProvider', '$logProvider', 
         function($routeProvider, $locationProvider, $logProvider) {
-            $routeProvider.
+            $routeProvider.                
+                when('/home/:id', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).
                 when('/home', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).
                 when('/todos',
                     {
