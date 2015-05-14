@@ -13,7 +13,7 @@
                 $rootScope.$on('event:ajax-show', function () {
                     if (innerHtml) return;
                     innerHtml = elem[0].innerHTML;
-                    elem[0].innerHTML = 'Loading...';
+                    elem[0].innerHTML = 'Thinking...';
                 });
                 
                 $rootScope.$on('event:ajax-hide', function () {

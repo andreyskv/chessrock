@@ -8,10 +8,13 @@
 <div class="row">
     <!--<nywton-chessboard nywton-position-ruy-lopez data-board="board" on-change="chessboardchanged" nywton-chessboard-autoresize data-spare-pieces="false"></nywton-chessboard>--> 
     
-    
+    <button type="button" class="btn pull-left" data-ng-click="save()">Save</button>
+    <button type="button" class="btn pull-left" data-ng-click="load()">Load</button>
   
     <div class="row">
-        <div class="col-md-12">
+       
+
+        <div class="col-md-12">            
 
             <nywton-chessgame data-game="game" nywton-chess-autoresize data-board="board"></nywton-chessgame>
             <button type="button" class="btn btn-primary pull-left" data-ng-click="game.reset(); board.start();">Reset</button>
@@ -26,10 +29,10 @@
             <b>{{game.turn() | turnnote}}</b>
             <div>{{game.fen()}}</div>
         </div>        
-        <div class="col-md-12 wrap">{{game.pgn()}}</div>
+        <div class="col-md-12 wrap">{{game.pgn()}}</div>      
     </div>
     <div class="row">
-        <button type="button" class="btn pull-left" data-ng-click="save()"><<</button>
+        
 
         <!--<div>{{game.moves()}}</div>-->
         <!--<div class="pull-left col-md-6>{{game.history({verbose:false})}}</div>-->

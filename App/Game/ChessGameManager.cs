@@ -15,10 +15,11 @@ namespace App.Game
         public ChessGameManager()
         {
             Clients = GlobalHost.ConnectionManager.GetHubContext<ChessHub>().Clients;
-            //_uciEngine.LoadEngine("stockfish.exe");
-              _uciEngine.LoadEngine("murka2.exe");
+            _uciEngine.LoadEngine("stockfish.exe");
+            //  _uciEngine.LoadEngine("murka2.exe");
             //_uciEngine.LoadEngine("HiarcsX50UCI.exe");
-            
+            //_uciEngine.LoadEngine("ALChess1.5b.exe");            
+
             _uciEngine.BestMoveFoundEvent += bestmove_Event;
            // StartNewGame();
         }

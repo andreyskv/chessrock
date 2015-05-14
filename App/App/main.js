@@ -10,7 +10,7 @@
     //#endregion
 
     $(window).resize(function () {        
-        var h = $(window).height()-300;
+        var h = $(window).height()-320;
         var w = $(window).width();
         var ratio = w > h ? h/w : w/h;
         $('#content').width(w*ratio);

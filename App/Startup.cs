@@ -16,9 +16,11 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Infrastructure;
 using System.Web.Routing;
 using System.Web.Http;
+using Raven.Client.Embedded;
+using System;
 
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-[assembly: OwinStartup(typeof(App.Startup))]
+//[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+//[assembly: OwinStartup(typeof(App.Startup))]
 
 namespace App
 {
@@ -27,7 +29,8 @@ namespace App
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public void Configuration(IAppBuilder app)
-        {
+        {              
+
             //Configure AutoMapper (http://automapper.codeplex.com/)
             Mapper.Initialize(ConfigureMapper);
 
@@ -38,23 +41,27 @@ namespace App
             //Configure AutoFac for DependencyResolver (http://autofac.org/)
             IContainer container = RegisterServices();
             var resolverForSignalr = new Autofac.Integration.SignalR.AutofacDependencyResolver(container);
-            var resolver = new App.Common.AutoFacDependencyResolver(container);     
+            var resolver = new App.Common.AutoFacDependencyResolver(container);
 
             //Configure WebApi
-            var config = new HttpConfiguration() { DependencyResolver = resolver };            
+            var config = new HttpConfiguration() { DependencyResolver = resolver };
             ConfigureWebApi(config);
             app.UseWebApi(config);
 
             //Configure SignalR self host   
-            var hubConfiguration = new HubConfiguration() { Resolver = resolverForSignalr};                        
+            var hubConfiguration = new HubConfiguration() { Resolver = resolverForSignalr };
             app.MapSignalR(hubConfiguration);
 
             //Log trafic using Log4Net
             app.Use(typeof(Logging));
 
+            // container.Resolve<IRavenRepository>();
+
             //Set global dependency resolver for signalr 
             GlobalHost.DependencyResolver = resolverForSignalr;
-        }     
+
+
+        }
 
         private  void ConfigureWebApi(HttpConfiguration config)
         {
@@ -80,7 +87,9 @@ namespace App
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(typeof(Startup).Assembly).Where(t => t.Name.EndsWith("Controller")).AsSelf();
 
-            builder.RegisterType<TodoItemRepository>().As<IRepository>().As<IAsyncRepository>();           
+            builder.RegisterType<TodoItemRepository>().As<IRepository>().As<IAsyncRepository>();
+            builder.RegisterType<RavenRepository>().As<IRavenRepository>().SingleInstance();
+
             builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();
             builder.RegisterType<ChessHub>();
 

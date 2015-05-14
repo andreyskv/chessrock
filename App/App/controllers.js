@@ -4,32 +4,87 @@
     var controllers = angular.module('controllers', []);
 
     //#region HomeCtrl
-    controllers.controller('HomeCtrl', ['$scope', '$signalR', '$routeParams', 'CurrentGame', function ($scope, $signalR, $routeParams, CurrentGame) {
+    controllers.controller('HomeCtrl', ['$scope', '$signalR', '$route', '$routeParams', 'CurrentGame', function ($scope, $signalR, $route, $routeParams, CurrentGame) {
         $scope.title = 'Home';        
        
-        //$scope.$watch('game', function () {
-        //    if ($scope.game) {                
-        //        $scope.history = $scope.game.history;
-        //        //$scope.$safeApply();
+
+        //var lastRoute = $route.current;
+        //$scope.$on('$locationChangeSuccess', function (event) {
+        //    debugger;
+        //    if (!$routeParams.id)
+        //        $route.current = lastRoute;
+        //});
+
+        //$scope.$on('$routeChangeStart', function (e, next, last) {
+        //    debugger;
+        //    if (next.$$route.controller === last.$$route.controller) {
+        //        e.preventDefault();
+        //        $route.current = last.$$route;
+        //        //do whatever you want in here!
         //    }
-        //})
+        //});
+        debugger;
+        var lastRoute = $route.current;
+        $scope.$on('$locationChangeSuccess', function (event) {
+            
+            //if (lastRoute.$$route.originalPath === $route.current.$$route.originalPath) {
+            if (lastRoute.$$route.controller === $route.current.$$route.controller) {
+                debugger;
+//                $route.current.
+                var params = $route.current.params;
+                if (params.id)
+                    event.currentScope.init(params.id);
+
+                $route.current = lastRoute;
+            }
+        });
+        
+        $scope.movesBackStack = [];
 
         var gameTypeId = $routeParams.id;
-        if (!gameTypeId) gameTypeId = 1;
+   
+        $scope.reset = function reset() {            
+            $scope.game.reset();
+            $scope.board.start();
+            $scope.movesBackStack = [];
+        };
 
+        $scope.init = function init(type) {
+            
+            if (type)
+                $scope.reset();
 
-        $scope.movesBackStack = [];
+            switch (type) {
+                case 'playwhite':
+                    $scope.board.orientation('white');
+                    break;
+                case 'playblack':                    
+                    $scope.board.orientation('black');
+                    $scope.makeEngineMove();
+                    break;
+                default:
+                    $scope.load();
+            };
+
+        };
+  
+        $scope.$watchGroup(['game', 'board'], function () {            
+            if ($scope.game && $scope.board) {                
+                $scope.init(gameTypeId);                
+            }
+        });
+
 
         $scope.makeEngineMove = function engineMove() {
             var position = $scope.game.fen()
             $signalR.$emit('chessClientMoveEvent', position);
-        }
+        };
         
-        $scope.onBoardChanged = function onBoardChanged(oldPosition, newPosition)
-        {         
+        $scope.onBoardChanged = function onBoardChanged(oldPosition, newPosition) {
             //if ($scope.game.turn() == 'b')
-              //  $scope.makeEngineMove();
-        }
+            //  $scope.makeEngineMove();
+            $scope.save();
+        };
 
         $signalR.$on('chessServerMoveEvent', function (e, moveFromServer) {            
             $scope.game.move(moveFromServer);
@@ -38,46 +93,36 @@
 
 
         $scope.moveBack = function moveBack() {
-            
+
             var move = $scope.game.undo();
             if (move) {
                 $scope.movesBackStack.push(move);
                 $scope.board.position($scope.game.fen())
-            }                
-        }
+            }
+        };
 
-        $scope.moveForward = function moveForward(){
+        $scope.moveForward = function moveForward() {
             var move = $scope.movesBackStack.pop();
             $scope.game.move(move);
             $scope.board.position($scope.game.fen());
-        }
+        };
 
        
         $scope.save = function save() {
-           
-            debugger;
-            //CurrentGame.update($scope.game.pgn());
-           // curGame.data = $scope.game.pgn();
-            //var curGame = new CurrentGame();
-            //CurrentGame.update({ id: 3}, {data: "testtest" });
 
-            var curGameFromServer = CurrentGame.get();
+            var data = { pgn: $scope.game.pgn(), boardorientation: $scope.board.orientation() }
+            CurrentGame.save(data);
+        };
 
-            //var curGame = new CurrentGame();
-            //curGame.data = "test";// $scope.game.pgn();
-            //curGame.$save();
+        $scope.load = function load() {
 
-            //CurrentGame.save({ id: 3 }, { data: 'testtest' });
-            CurrentGame.save({ id: 3 }, 'testtest');
+            var curGameFromServer = CurrentGame.get(function (data) {
+                $scope.game.load_pgn(curGameFromServer.pgn);
+                $scope.board.orientation(curGameFromServer.boardorientation);
+                $scope.board.position($scope.game.fen());
+            });
+        };
 
-            //curGame.$save(function (data) {
-            //    //$safeApply($scope, function () {
-            //    //    $scope.todoLists.push(data);
-            //    //    $scope.newTodoListName = '';
-            //    //});
-            //});
-
-        }
 
     }]);
     //#endregion

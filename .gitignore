@@ -1,7 +1,13 @@
+app.min.js
+app.min.js.map
+app.js
 bin/
 obj/
 packages/
 bower_components/
+Engines/
+App_Data/
+CompiledIndexCache/
 *.suo
 *.user
 *.log
