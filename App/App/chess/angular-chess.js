@@ -75,13 +75,14 @@
     var directive = {
       restrict: 'E',
       template: '<div>' +
-        '<nywton-chessboard board="board" position="\'start\'" showNotation="true" draggable="true" on-change="onChange" on-drag-start-cb="onDragStart" on-snap-end="onSnapEnd" on-drop="onDrop"></nywton-chessboard>' +
+        '<nywton-chessboard board="board" position="\'start\'" showNotation="true" draggable="true" on-change="onChangeB" on-drag-start-cb="onDragStart" on-snap-end="onSnapEnd" on-drop="onDrop"></nywton-chessboard>' +
       '</div>',
       replace:false,
       scope : {
         'name': '@',
         'game': '=',
         'board': '=',
+        'onChange': '&'
       },
       controller: ['$scope', function chessgame($scope) {
         var game = $scope.game = new $window.Chess();
@@ -103,10 +104,10 @@
         $scope.onDrop = function onDropF(source, target) {
             return ChessGameService.onDrop($scope.game,  $scope.board, source, target);
         };
-        $scope.onChange = function onChangeF(oldPosition, newPosition) {            
-          if ($scope.$parent.onBoardChanged)
-              return $scope.$parent.onBoardChanged(oldPosition, newPosition);
-          return angular.noop(oldPosition, newPosition);
+        $scope.onChangeB = function onChangeF(oldPosition, newPosition) {            
+            if ($scope.onChange)
+                return $scope.onChange()({oldP: oldPosition, newP: newPosition});            
+            return angular.noop(oldPosition, newPosition);
         };
       }],
     };

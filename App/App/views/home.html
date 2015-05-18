@@ -16,7 +16,7 @@
 
         <div class="col-md-12">            
 
-            <nywton-chessgame data-game="game" nywton-chess-autoresize data-board="board"></nywton-chessgame>
+            <nywton-chessgame data-game="game" nywton-chess-autoresize data-board="board" on-change="onBoardChanged"></nywton-chessgame>
             <button type="button" class="btn btn-primary pull-left" data-ng-click="game.reset(); board.start();">Reset</button>
 
             <button type="button" class="btn pull-left" data-ng-click="makeEngineMove()" data-ng-disabled="game.game_over()">Go</button>
