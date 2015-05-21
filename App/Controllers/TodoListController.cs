@@ -10,7 +10,7 @@ using log4net;
 
 namespace App.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [RoutePrefix("api/TodoList")]
     public class TodoListController: MapEntityController<TodoList, TodoListViewModel>
     {

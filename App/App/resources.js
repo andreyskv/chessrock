@@ -20,8 +20,14 @@
     //#endregion
 
     resources.factory('CurrentGame',['$resource', '$path', function ($resource, $path) {
-        return $resource($path('api/CurrentGame/:id'), {id: '@Id'}, { 
-            get: { method: 'GET' },
+        return $resource($path('api/PgnGame/current'), {
+            get: { method: 'GET' }            
+        });
+    }]);
+
+    resources.factory('PgnGame', ['$resource', '$path', function ($resource, $path) {
+        return $resource($path('api/PgnGame/:id'), { id: '@Id' }, {
+            get: { method: 'GET', isArray: true },
             update: { method: 'PUT' }
         });
     }]);

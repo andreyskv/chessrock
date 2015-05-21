@@ -4,14 +4,16 @@
 }
 
 #content {
-    width:500px; 
+    width:90%;
+    height:90%;
     margin:0 auto;
-    text-align: center;
+    text-align: center; 
+       
 }
 .bg {
-    width:315px;
+    width:915px;
     height:23px;
-    margin:0 auto;
+    margin:0 auto;  
 }
 
 
@@ -24,10 +26,8 @@
 .reveal-animation.ng-enter {
     -webkit-transition: 1s linear all;
     -moz-transition: 1s linear all;
-    -o-transition: 1s linear all;
-    -ms-transition: 1s linear all;
-    transition: 1s linear all;
-    -ms-opacity: 0;
+    -o-transition: 1s linear all;    
+    transition: 1s linear all;    
     opacity: 0;
 }
 
@@ -74,12 +74,12 @@
         opacity: 1;
     }
 
-@media only screen and (max-width: 767px) {
+/*@media only screen and (max-width: 1000px) {
     .nofloat {
         float: none;
         padding: 10px 15px;
     }
-}
+}*/
 
 .strike {
     text-decoration: line-through;

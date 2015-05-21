@@ -217,6 +217,7 @@
     <Content Include="App\resources.js" />
     <Content Include="App\services.js" />
     <Content Include="App\views\about.html" />
+    <Content Include="App\views\database.html" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\todos.html" />
     <Content Include="App\views\logs.html" />

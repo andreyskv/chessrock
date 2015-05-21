@@ -8,12 +8,13 @@
 
     <title>Home</title>
 
-    <link href="Content/style.min.css" rel="stylesheet" />    
+    <link href="Content/style.min.css" rel="stylesheet" />
+    <link href="Content/site.css" rel="stylesheet" />
     <link href="Content/chessboard.css" rel="stylesheet" />
 
 </head>
 <body>
-    
+
     <div class="container body-content">
         <!-- Fixed navbar -->
         <div class="navbar navbar-default navbar-fixed-top" data-ng-controller="NavCtrl">
@@ -75,12 +76,12 @@
         </div>
 
         <div id="content" data-ng-view class="reveal-animation"></div>
-   
+
         <hr />
         <footer>
             <!--<p>&copy; <span data-ng-bind="today.getFullYear()"></span> - Chessrock</p>-->
 
-            <p data-busy-indicator ><span data-ng-bind="today.getFullYear()"></span> - Chessrock</p>
+            <p data-busy-indicator><span data-ng-bind="today.getFullYear()"></span> - Chessrock</p>
 
         </footer>
 
@@ -124,7 +125,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-    </div>    
+    </div>
     <!-- Scripts -->
     <script src="Scripts/vendors.js"></script>
 
@@ -148,7 +149,7 @@
     <script src="App/chess/chessboard.js"></script>
     <script src="App/chess/chess.js"></script>
     <script src="App/chess/angular-chess.js"></script>
-    <script src="App/chess/angular-chessboard.js"></script>    
+    <script src="App/chess/angular-chessboard.js"></script>
 
 </body>
 </html>

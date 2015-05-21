@@ -7,16 +7,7 @@
     toastr.options.closeButton = true;
     toastr.options.newestOnTop = false;
     toastr.options.positionClass = 'toast-bottom-right';
-    //#endregion
-
-    $(window).resize(function () {        
-        var h = $(window).height()-320;
-        var w = $(window).width();
-        var ratio = w > h ? h/w : w/h;
-        $('#content').width(w*ratio);
-    });
-
-    $(window).trigger('resize');
+    //#endregion 
 
     // 'app' is the one Angular (Ng) module in this app
     // 'app' module is in global namespace
@@ -49,17 +40,17 @@
     app.config(['$routeProvider', '$locationProvider', '$logProvider', 
         function($routeProvider, $locationProvider, $logProvider) {
             $routeProvider.                
-                when('/home/:id', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).
+               // when('/home/:id', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).
                 when('/home', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).
                 when('/todos',
                     {
-                        templateUrl: 'App/views/todos.html',
-                        controller: 'TodosCtrl',
-                        resolve: {
-                            authentication: ['$http', function ($http) {
-                                return $http.get('api/Account/Ping');
-                            }]
-                        }
+                        templateUrl: 'App/views/database.html',
+                        controller: 'DatabaseCtrl'
+                        //resolve: {
+                        //    authentication: ['$http', function ($http) {
+                        //        return $http.get('api/Account/Ping');
+                        //    }]
+                        //}
                     }).
                 when('/about', { templateUrl: 'App/views/about.html', controller: 'AboutCtrl' }).
                 when('/settings',

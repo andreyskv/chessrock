@@ -4,10 +4,17 @@
     var controllers = angular.module('controllers', []);
 
     //#region HomeCtrl
-    controllers.controller('HomeCtrl', ['$scope', '$signalR', '$route', '$routeParams', 'CurrentGame', function ($scope, $signalR, $route, $routeParams, CurrentGame) {
+    controllers.controller('HomeCtrl', ['$scope', '$window', '$signalR', '$route', '$routeParams', 'CurrentGame', function ($scope, $window, $signalR, $route, $routeParams, CurrentGame) {
         $scope.title = 'Home';        
        
 
+        $(window).resize(function () {            
+            var h = $(window).height() -300 ;
+            var w = $(window).width();
+            var ratio = w > h ? h/w : w/h;
+            $('#ntboard').width(w * ratio);
+        });
+        $(window).trigger('resize');
         //var lastRoute = $route.current;
         //$scope.$on('$locationChangeSuccess', function (event) {
         //    debugger;
@@ -15,26 +22,21 @@
         //        $route.current = lastRoute;
         //});
 
-        //$scope.$on('$routeChangeStart', function (e, next, last) {
-        //    debugger;
+        //$scope.$on('$routeChangeStart', function (e, next, last) {        
         //    if (next.$$route.controller === last.$$route.controller) {
         //        e.preventDefault();
         //        $route.current = last.$$route;
         //        //do whatever you want in here!
         //    }
         //});
-        debugger;
+
         var lastRoute = $route.current;
         $scope.$on('$locationChangeSuccess', function (event) {
-            
-            //if (lastRoute.$$route.originalPath === $route.current.$$route.originalPath) {
-            if (lastRoute.$$route.controller === $route.current.$$route.controller) {
-                debugger;
-//                $route.current.
+                        
+            if (lastRoute.$$route.controller === $route.current.$$route.controller) {                
                 var params = $route.current.params;
                 if (params.id)
                     event.currentScope.init(params.id);
-
                 $route.current = lastRoute;
             }
         });
@@ -80,9 +82,7 @@
             $signalR.$emit('chessClientMoveEvent', position);
         };
         
-        $scope.onBoardChanged = function onBoardChanged(oldPosition, newPosition) {
-            //if ($scope.game.turn() == 'b')
-            //  $scope.makeEngineMove();
+        $scope.onBoardChanged = function onBoardChanged(params) {                    
             $scope.save();
         };
 
@@ -109,14 +109,14 @@
 
        
         $scope.save = function save() {
-
-            var data = { pgn: $scope.game.pgn(), boardorientation: $scope.board.orientation() }
+            var data = { pgn: $scope.game.pgn(), boardorientation: $scope.board.orientation() };
             CurrentGame.save(data);
         };
 
         $scope.load = function load() {
 
             var curGameFromServer = CurrentGame.get(function (data) {
+                debugger;
                 $scope.game.load_pgn(curGameFromServer.pgn);
                 $scope.board.orientation(curGameFromServer.boardorientation);
                 $scope.board.position($scope.game.fen());
@@ -126,6 +126,60 @@
 
     }]);
     //#endregion
+
+    
+    controllers.controller('DatabaseCtrl', ['$scope', 'PgnGame', function ($scope, PgnGame) {
+        $scope.title = 'Database';
+
+        debugger;
+        $scope.gameList = [];// ["1", "2", "3"];
+
+        var load = function load() {
+            
+            var curGameFromServer = PgnGame.get(function (data) {
+
+                debugger;
+                curGameFromServer.forEach(function (game){
+                    $scope.gameList.push(game);
+                });
+                
+                //$scope.game.load_pgn(curGameFromServer.pgn);
+                //$scope.board.orientation(curGameFromServer.boardorientation);
+                //$scope.board.position($scope.game.fen());
+            });
+        };
+
+
+        $scope.addPgn = function addPgn($fileContent) {           
+            var data = { pgn: $fileContent, boardorientation: 'white' };
+            PgnGame.save(data, function(){
+                $scope.gameList.push(data);
+            });
+        };
+
+        $scope.deletePgn = function deletePgn(game) {
+            
+            PgnGame.delete({id: game.id}, function () {
+                
+                var i = $scope.gameList.indexOf(game)
+                if (i != -1) {
+                    $scope.gameList.splice(i, 1);
+                }
+
+                //$scope.gameList.remove(game);
+            });
+        };
+
+        
+
+        load();
+
+    }]);
+
+
+
+
+
 
     //#region TodosCtrl
     controllers.controller('TodosCtrl', ['$scope', '$safeApply', 'TodoList', 'TodoItem',
