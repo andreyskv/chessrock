@@ -1,4 +1,4 @@
-﻿(function(angular, toastr) {
+﻿(function(angular) {
     'use strict';
 
     angular.module('interceptors', [])
@@ -101,5 +101,5 @@
             }]);
         //#endregion
 
-})(angular, toastr);
+})(angular);
 

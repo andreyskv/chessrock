@@ -152,6 +152,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\app.js">
+      <DependentUpon>app.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="App\app.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App\app.min.js">
+      <DependentUpon>app.js</DependentUpon>
+    </Content>
     <Content Include="App\controllers.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\filters.js" />
@@ -160,6 +169,16 @@
     <Content Include="App\interceptors.js" />
     <Content Include="App\resources.js" />
     <Content Include="App\services.js" />
+    <Content Include="Scripts\vendors.js">
+      <DependentUpon>vendors.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Scripts\vendors.js.bundle" />
+    <Content Include="Scripts\vendors.min.js">
+      <DependentUpon>vendors.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\vendors.min.js.map">
+      <DependentUpon>vendors.min.js</DependentUpon>
+    </Content>
     <Content Include="App\views\about.html" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\todos.html" />
@@ -183,6 +202,9 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App\app.min.js.map">
+      <DependentUpon>app.min.js</DependentUpon>
+    </Content>
     <None Include="Content\style.css.bundle" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -224,9 +246,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

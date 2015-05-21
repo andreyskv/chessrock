@@ -10,9 +10,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/bower_components/jquery/dist/jquery.js</file>
-    <file>/bower_components/signalr/jquery.signalR.js</file>
-    <file>/bower_components/toastr/toastr.js</file>
+    <file>/bower_components/jquery/dist/jquery.js</file>    
     <file>/bower_components/bootstrap-css/js/bootstrap.js</file>
     <file>/bower_components/angular/angular.js</file>
     <file>/bower_components/angular-animate/angular-animate.js</file>

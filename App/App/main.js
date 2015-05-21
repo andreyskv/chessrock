@@ -1,14 +1,8 @@
 ﻿/* main: startup script creates the 'app' module */
 
-(function (window, angular, toastr) {
+(function (window, angular) {
     'use strict';
     
-    //#region configure toastr
-    toastr.options.closeButton = true;
-    toastr.options.newestOnTop = false;
-    toastr.options.positionClass = 'toast-bottom-right';
-    //#endregion 
-
     // 'app' is the one Angular (Ng) module in this app
     // 'app' module is in global namespace
     window.app = angular.module('app', [
@@ -81,4 +75,4 @@
             });
         }]);
 
-})(window, angular, toastr);
+})(window, angular);
