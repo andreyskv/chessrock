@@ -121,42 +121,6 @@
     });
     //#endregion
     
-    //#region $signalR
-    services.factory('$signalR', ['$rootScope', function ($rootScope) {
-        var self = $rootScope.$new();
-        
-        ////Log4Net.SignalR
-        //var log4Net = $.connection.signalrAppenderHub;
-        //log4Net.client.onLoggedEvent = function (loggedEvent) {
-        //    debugger;
-        //    self.$emit('loggedEvent', loggedEvent);
-        //};
-        //$.connection.hub.start();
 
-        var chess = $.connection.chessHub;       
-        chess.client.sendChessMoveToClient = function (move) {            
-            self.$emit('chessServerMoveEvent', move);
-        };
-
-        $.connection.hub.start().done(function () {    
-            chess.server.startGame();
-            self.$on('chessClientMoveEvent', function (e, fenpos) {                
-                chess.server.fen(fenpos);
-            });
-        });
-
-
-        //$.connection.hub.start().done(function () {
-        //    $('#sendmessage').click(function () {
-        //        // Call the Send method on the hub. 
-        //        chat.server.send($('#displayname').val(), $('#message').val());
-        //        // Clear text box and reset focus for next comment. 
-        //        $('#message').val('').focus();
-        //    });
-        //});
-
-        return self;
-    }]);
-    //#endregion
 
 })(window.angular, window.jQuery);

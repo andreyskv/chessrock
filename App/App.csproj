@@ -42,9 +42,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.SignalR">
-      <HintPath>..\packages\Autofac.SignalR2.3.1.0\lib\net45\Autofac.Integration.SignalR.dll</HintPath>
-    </Reference>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
@@ -61,14 +58,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net.SignalR, Version=0.1.5286.20179, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.SignalR.2.1.0.1\lib\net45\log4net.SignalR.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -76,10 +65,6 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -136,18 +121,6 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Database.3.0.3660\lib\net45\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=3.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.3.0.3660\lib\net45\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Database, Version=3.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Database.3.0.3660\lib\net45\Raven.Database.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
@@ -195,19 +168,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\app.js">
-      <DependentUpon>app.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="App\app.js.bundle">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App\app.min.js">
-      <DependentUpon>app.js</DependentUpon>
-    </Content>
-    <Content Include="App\chess\angular-chess.js" />
-    <Content Include="App\chess\angular-chessboard.js" />
-    <Content Include="App\chess\chess.js" />
-    <Content Include="App\chess\chessboard.js" />
     <Content Include="App\controllers.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\filters.js" />
@@ -217,28 +177,13 @@
     <Content Include="App\resources.js" />
     <Content Include="App\services.js" />
     <Content Include="App\views\about.html" />
-    <Content Include="App\views\database.html" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\todos.html" />
-    <Content Include="App\views\logs.html" />
     <Content Include="App\views\settings.html" />
     <Content Include="Content\bootstrap\bootstrap.css" />
-    <Content Include="Content\chessboard.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\ajax.gif" />
-    <Content Include="Content\Images\chesspieces\bB.png" />
-    <Content Include="Content\Images\chesspieces\bK.png" />
-    <Content Include="Content\Images\chesspieces\bN.png" />
-    <Content Include="Content\Images\chesspieces\bP.png" />
-    <Content Include="Content\Images\chesspieces\bQ.png" />
-    <Content Include="Content\Images\chesspieces\bR.png" />
-    <Content Include="Content\Images\chesspieces\wB.png" />
-    <Content Include="Content\Images\chesspieces\wK.png" />
-    <Content Include="Content\Images\chesspieces\wN.png" />
-    <Content Include="Content\Images\chesspieces\wP.png" />
-    <Content Include="Content\Images\chesspieces\wQ.png" />
-    <Content Include="Content\Images\chesspieces\wR.png" />
     <Content Include="Content\Images\preview.gif" />
     <Content Include="Content\Images\spinner.gif" />
     <Content Include="Content\site.css" />
@@ -250,9 +195,6 @@
     </Content>
     <Content Include="index.html" />
     <Content Include="redame.txt" />
-    <Content Include="App\app.min.js.map">
-      <DependentUpon>app.min.js</DependentUpon>
-    </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -263,39 +205,33 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\EfRepository.cs" />
-    <Compile Include="Common\EntityController.cs" />
-    <Compile Include="Common\IRavenRepository.cs" />
-    <Compile Include="Common\MapEntityController.cs" />
-    <Compile Include="Common\IAsyncRepository.cs" />
-    <Compile Include="Common\RavenRepository.cs" />
-    <Compile Include="Controllers\CurrentGameController.cs" />
-    <Compile Include="Game\ChessGameManager.cs" />
-    <Compile Include="Game\ChessHub.cs" />
-    <Compile Include="Game\IChessGameManager.cs" />
-    <Compile Include="Identity\DomanUserLoginProvider.cs" />
-    <Compile Include="Identity\ILoginProvider.cs" />
-    <Compile Include="Common\IRepository.cs" />
-    <Compile Include="Common\ApiControllerExtension.cs" />
-    <Compile Include="Common\AutoFacDependencyResolver.cs" />
+    <Compile Include="Server\EfRepository.cs" />
+    <Compile Include="Server\MapEntityController.cs" />
+    <Compile Include="Server\IAsyncRepository.cs" />
+    <Compile Include="Server\Identity\DomanUserLoginProvider.cs" />
+    <Compile Include="Server\Identity\ILoginProvider.cs" />
+    <Compile Include="Server\IRepository.cs" />
+    <Compile Include="Server\ApiControllerExtension.cs" />
+    <Compile Include="Server\AutoFacDependencyResolver.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
     <Compile Include="Controllers\TodoListController.cs" />
-    <Compile Include="Identity\LocalUserLoginProvider.cs" />
-    <Compile Include="Models\TodoItem.cs" />
-    <Compile Include="Models\TodoItemContext.cs" />
-    <Compile Include="Models\TodoItemInitializer.cs" />
-    <Compile Include="Models\TodoItemRepository.cs" />
-    <Compile Include="Models\TodoList.cs" />
-    <Compile Include="Game\UciEngineManager.cs" />
-    <Compile Include="Plugins\Logging.cs" />
+    <Compile Include="Server\Identity\LocalUserLoginProvider.cs" />
+    <Compile Include="Controllers\Models\TodoItem.cs" />
+    <Compile Include="Controllers\Models\TodoItemContext.cs" />
+    <Compile Include="Controllers\Models\TodoItemInitializer.cs" />
+    <Compile Include="Controllers\Models\TodoItemRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Models\TodoList.cs" />
+    <Compile Include="Server\Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\AccountProfileViewModel.cs" />
-    <Compile Include="ViewModels\LoginAccessViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\TodoItemViewModel.cs" />
-    <Compile Include="ViewModels\TodoListViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\AccountProfileViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\LoginAccessViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TodoItemViewModel.cs" />
+    <Compile Include="Controllers\ViewModels\TodoListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -310,9 +246,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

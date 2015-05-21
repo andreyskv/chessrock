@@ -17,10 +17,6 @@
     <file>/App/directives.js</file>
     <file>/App/controllers.js</file>
     <file>/App/filters.js</file>
-    <file>/App/main.js</file>
-    <file>/App/chess/chessboard.js</file>
-    <file>/App/chess/chess.js</file>
-    <file>/App/chess/angular-chess.js</file>
-    <file>/App/chess/angular-chessboard.js</file>
+    <file>/App/main.js</file>    
   </files>
 </bundle>

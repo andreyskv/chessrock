@@ -23,34 +23,28 @@
         'controllers',
         'filters',
         'http-auth-interceptor',
-        'interceptors',
-        'nywton.chessboard',
-        'nywton.chess'
+        'interceptors'        
     ]);
 
-    var exceptionHandler = function (e) {
-        toastr.error(e.message || e);
-    };
-
-    // Learn about Angular dependency injection in this video
-    // http://www.youtube.com/watch?feature=player_embedded&v=1CpiB3Wk25U#t=2253s
-    app.value('$exceptionHandler', exceptionHandler);
+    //var exceptionHandler = function (e) {
+    //    toastr.error(e.message || e);
+    //};    
+    //app.value('$exceptionHandler', exceptionHandler);
 
     //#region Configure routes
     app.config(['$routeProvider', '$locationProvider', '$logProvider', 
         function($routeProvider, $locationProvider, $logProvider) {
             $routeProvider.                
-               // when('/home/:id', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).
-                when('/home', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).
+                when('/home', { templateUrl: 'App/views/home.html', controller: 'HomeCtrl' }).               
                 when('/todos',
                     {
-                        templateUrl: 'App/views/database.html',
-                        controller: 'DatabaseCtrl'
-                        //resolve: {
-                        //    authentication: ['$http', function ($http) {
-                        //        return $http.get('api/Account/Ping');
-                        //    }]
-                        //}
+                        templateUrl: 'App/views/todos.html',
+                        controller: 'TodosCtrl',
+                        resolve: {
+                            authentication: ['$http', function ($http) {
+                                return $http.get('api/Account/Ping');
+                            }]
+                        }
                     }).
                 when('/about', { templateUrl: 'App/views/about.html', controller: 'AboutCtrl' }).
                 when('/settings',
@@ -62,8 +56,7 @@
                                 return $http.get('api/Account/Ping');
                             }]
                         }
-                    }).
-                when('/logs', { templateUrl: 'App/views/logs.html', controller: 'LogsCtrl' }).
+                    }).                
                 otherwise({ redirectTo: '/home' });
 
             $locationProvider.html5Mode(false).hashPrefix('!');

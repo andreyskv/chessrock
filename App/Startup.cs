@@ -1,6 +1,5 @@
 ﻿using App.Plugins;
 using App.Models;
-using App.Game;
 using App.Identity;
 using App.Common;
 using App.ViewModels;
@@ -11,12 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Autofac;
 using Autofac.Core;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using System.Web.Routing;
 using System.Web.Http;
-using Raven.Client.Embedded;
 using System;
 
 //[assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -39,28 +34,14 @@ namespace App
             app.UseOAuthBearerTokens(OAuthOptions);
 
             //Configure AutoFac for DependencyResolver (http://autofac.org/)
-            IContainer container = RegisterServices();
-            var resolverForSignalr = new Autofac.Integration.SignalR.AutofacDependencyResolver(container);
+            IContainer container = RegisterServices();            
             var resolver = new App.Common.AutoFacDependencyResolver(container);
 
             //Configure WebApi
             var config = new HttpConfiguration() { DependencyResolver = resolver };
             ConfigureWebApi(config);
             app.UseWebApi(config);
-
-            //Configure SignalR self host   
-            var hubConfiguration = new HubConfiguration() { Resolver = resolverForSignalr };
-            app.MapSignalR(hubConfiguration);
-
-            //Log trafic using Log4Net
-            app.Use(typeof(Logging));
-
-            // container.Resolve<IRavenRepository>();
-
-            //Set global dependency resolver for signalr 
-            GlobalHost.DependencyResolver = resolverForSignalr;
-
-
+            
         }
 
         private  void ConfigureWebApi(HttpConfiguration config)
@@ -87,14 +68,8 @@ namespace App
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(typeof(Startup).Assembly).Where(t => t.Name.EndsWith("Controller")).AsSelf();
 
-            builder.RegisterType<TodoItemRepository>().As<IRepository>().As<IAsyncRepository>();
-            builder.RegisterType<RavenRepository>().As<IRavenRepository>().SingleInstance();
-
-            builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();
-            builder.RegisterType<ChessHub>();
-
-            builder.RegisterType<ChessGameManager>().As<IChessGameManager>().SingleInstance();
-            
+            builder.RegisterType<TodoItemRepository>().As<IRepository>().As<IAsyncRepository>();            
+            builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();                      
             return builder.Build();
         }
 

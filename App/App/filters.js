@@ -2,13 +2,13 @@
     'use strict';
     var filters = angular.module('filters', []);
 
-    filters.filter('turnnote', function () {
+    filters.filter('note', function () {
         return function (input) {
             switch (input) {
-                case 'w':
-                    return "White To Move";
-                case 'b':
-                    return "Black To Move";
+                case 1:
+                    return "one";
+                case 2:
+                    return "two";
             }
         }
     });

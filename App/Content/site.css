@@ -1,21 +1,7 @@
 ﻿body {
     padding-top: 70px;
-    padding-bottom: 20px;     
+    padding-bottom: 20px;
 }
-
-#content {
-    width:90%;
-    height:90%;
-    margin:0 auto;
-    text-align: center; 
-       
-}
-.bg {
-    width:915px;
-    height:23px;
-    margin:0 auto;  
-}
-
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -26,8 +12,10 @@
 .reveal-animation.ng-enter {
     -webkit-transition: 1s linear all;
     -moz-transition: 1s linear all;
-    -o-transition: 1s linear all;    
-    transition: 1s linear all;    
+    -o-transition: 1s linear all;
+    -ms-transition: 1s linear all;
+    transition: 1s linear all;
+    -ms-opacity: 0;
     opacity: 0;
 }
 
@@ -74,24 +62,13 @@
         opacity: 1;
     }
 
-/*@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 767px) {
     .nofloat {
         float: none;
         padding: 10px 15px;
     }
-}*/
+}
 
 .strike {
     text-decoration: line-through;
-}
-
-.hoverwell:hover {
-  background-color: #52575c;
-  cursor: pointer;
-}
-
-.wrap{    
-    -ms-word-wrap:break-word;
-    word-wrap:break-word;
-    text-align:left;
 }

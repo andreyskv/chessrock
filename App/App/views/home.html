@@ -1,60 +1,21 @@
-﻿<!--<h1 data-ng-bind="title"></h1>-->
-<!--<div id="board2" style="width: 500px; margin-left: auto; margin-right: auto;"></div>-->
-<!--<input type="button" id="startBtn" value="Start" />
-<input type="button" id="clearBtn" value="Clear" />-->
+﻿<h1 data-ng-bind="title"></h1>
+
 <!-- Three columns of text below the carousel -->
 <div class="row">
-    <!--<nywton-chessboard nywton-position-ruy-lopez data-board="board" on-change="chessboardchanged" nywton-chessboard-autoresize data-spare-pieces="false"></nywton-chessboard>-->
-
-    <!--<button type="button" class="btn pull-left" data-ng-click="save()">Save</button>
-    <button type="button" class="btn pull-left" data-ng-click="load()">Load</button>-->
-
-    <div class="row">
-
-
-        <div class="col-md-12">
-
-            <div id ="ntboard" class="center-block">
-                <nywton-chessgame data-game="game" nywton-chess-autoresize data-board="board" on-change="onBoardChanged"></nywton-chessgame>
-                <button type="button" class="btn btn-primary pull-left" data-ng-click="game.reset(); board.start();">Reset</button>
-
-                <button type="button" class="btn pull-left" data-ng-click="makeEngineMove()" data-ng-disabled="game.game_over()">Go</button>
-
-                <!--<button type="button" class="btn btn-info pull-left" data-ng-click="game.undo(); board.position(game.fen())" data-ng-disabled="game.game_over()"><<</button>-->
-
-                <button type="button" class="btn btn-info pull-left" data-ng-click="moveBack()" data-ng-disabled="game.history().length == 0"><<</button>
-                <button type="button" class="btn btn-info pull-left" data-ng-click="moveForward()" data-ng-disabled="movesBackStack && movesBackStack.length == 0">>></button>
-
-                <b>{{game.turn() | turnnote}}</b>
-                <div>{{game.fen()}}</div>
-            </div>
-        </div>
-        <div class="col-md-12 wrap">{{game.pgn()}}</div>
-    </div>
-    <div class="row">
-
-
-        <!--<div>{{game.moves()}}</div>-->
-        <!--<div class="pull-left col-md-6>{{game.history({verbose:false})}}</div>-->
-
-    </div>
-
-    <!--<input type="button" id="clearBtn" value="Clear" />-->
-    <!--<div class="col-lg-4">
-
+    <div class="col-lg-4">
         <h2>Heading</h2>
         <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
         <p><a class="btn btn-default">View details &raquo;</a></p>
-    </div>
+    </div><!-- /.col-lg-4 -->
     <div class="col-lg-4">
         <h2>Heading</h2>
         <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
         <p><a class="btn btn-default">View details &raquo;</a></p>
-    </div>
+    </div><!-- /.col-lg-4 -->
     <div class="col-lg-4">
         <h2>Heading</h2>
         <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <p><a class="btn btn-default">View details &raquo;</a></p>
-    </div>-->
-</div>
+    </div><!-- /.col-lg-4 -->
+</div><!-- /.row -->
 

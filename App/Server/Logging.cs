@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using log4net;
 using Microsoft.Owin;
 
 namespace App.Plugins
@@ -24,13 +23,10 @@ namespace App.Plugins
                 context.Request.User.Identity.IsAuthenticated)
             {
                 sb.Append(string.Format(", user name: [{0}]", context.Request.User.Identity.Name));
-            }
-
-            Log.Debug(sb.ToString());
+            }            
 
             return Next.Invoke(context);
         }
-
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Logging));
+        
     }
 }
