@@ -4,7 +4,7 @@
     angular.module('interceptors', [])
         .config(['$httpProvider', function ($httpProvider) {
         //    $httpProvider.interceptors.push('httpRequestInterceptorIECacheSlayer');
-            $httpProvider.interceptors.push('errorHttpInterceptor');
+         //   $httpProvider.interceptors.push('errorHttpInterceptor');
             $httpProvider.interceptors.push('httpAjaxInterceptor');
         }])
 
@@ -26,27 +26,27 @@
         //#endregion
 
         //#region errorHttpInterceptor
-        .factory('errorHttpInterceptor', ['$q',
-            function($q) {
-                return {
-                    response: function (response) {
-                        if (response.status == 401) {
-                            return response;
-                        } else if (response.status == 400 && response.data && response.data.message) {
-                            toastr.error(response.data.message);
-                            return $q.reject(response);
-                        } else if (response.status === 0) {
-                            toastr.error('Server connection lost');
-                            return $q.reject(response);
-                        } else if (response.status >= 400 && response.status < 500) {
-                            toastr.error('Server was unable to find' +
-                                ' what you were looking for... Sorry!!');
-                            return $q.reject(response);
-                        }
-                        return response;
-                    }
-                };
-            }])
+        //.factory('errorHttpInterceptor', ['$q',
+        //    function($q) {
+        //        return {
+        //            response: function (response) {
+        //                if (response.status == 401) {
+        //                    return response;
+        //                } else if (response.status == 400 && response.data && response.data.message) {
+        //                    toastr.error(response.data.message);
+        //                    return $q.reject(response);
+        //                } else if (response.status === 0) {
+        //                    toastr.error('Server connection lost');
+        //                    return $q.reject(response);
+        //                } else if (response.status >= 400 && response.status < 500) {
+        //                    toastr.error('Server was unable to find' +
+        //                        ' what you were looking for... Sorry!!');
+        //                    return $q.reject(response);
+        //                }
+        //                return response;
+        //            }
+        //        };
+        //    }])
         //#endregion
     
         //#region httpAjaxInterceptor
