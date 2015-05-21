@@ -17,13 +17,6 @@
     <file>/bower_components/angular/angular.js</file>
     <file>/bower_components/angular-animate/angular-animate.js</file>
     <file>/bower_components/angular-resource/angular-resource.js</file>
-    <file>/bower_components/angular-route/angular-route.js</file>
-    <!--<file>/Scripts/angular-touch.js</file>-->
-
-    <!--<file>/bower_components/angular-chess/angular-chess.js</file>
-    <file>/bower_components/angular-chessboard/angular-chessboard.js</file>
-    <file>/bower_components/chess.js/chess.js</file>-->
-    <!--<file>/bower_components/chessboard.js/js/chessboard.js</file>-->
-    
+    <file>/bower_components/angular-route/angular-route.js</file>    
   </files>
 </bundle>

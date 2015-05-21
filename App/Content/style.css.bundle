@@ -13,8 +13,6 @@
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
     <file>/Content/site.css</file>    
-    <file>/Content/bootstrap/bootstrap.css</file>    
-    <file>/bower_components/toastr/toastr.css</file>
-    
+    <file>/Content/bootstrap/bootstrap.css</file>            
   </files>
 </bundle>

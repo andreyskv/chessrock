@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using App.Repository;
 
 namespace App.Common
 {

@@ -4,7 +4,6 @@ app.js
 bin/
 obj/
 packages/
-bower_components/
 Engines/
 App_Data/
 CompiledIndexCache/

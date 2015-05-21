@@ -13,6 +13,7 @@ using Autofac.Core;
 using System.Web.Routing;
 using System.Web.Http;
 using System;
+using App.Repository;
 
 //[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 //[assembly: OwinStartup(typeof(App.Startup))]
@@ -68,7 +69,7 @@ namespace App
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(typeof(Startup).Assembly).Where(t => t.Name.EndsWith("Controller")).AsSelf();
 
-            builder.RegisterType<TodoItemRepository>().As<IRepository>().As<IAsyncRepository>();            
+            builder.RegisterType<AppRepository>().As<IRepository>().As<IAsyncRepository>();            
             builder.RegisterType<LocalUserLoginProvider>().As<ILoginProvider>().SingleInstance();                      
             return builder.Build();
         }

@@ -12,15 +12,12 @@
 .reveal-animation.ng-enter {
     -webkit-transition: 1s linear all;
     -moz-transition: 1s linear all;
-    -o-transition: 1s linear all;
-    -ms-transition: 1s linear all;
-    transition: 1s linear all;
-    -ms-opacity: 0;
+    -o-transition: 1s linear all;    
+    transition: 1s linear all;    
     opacity: 0;
 }
 
     .reveal-animation.ng-enter.ng-enter-active {
-        -ms-opacity: 1;
         opacity: 1;
     }
 
